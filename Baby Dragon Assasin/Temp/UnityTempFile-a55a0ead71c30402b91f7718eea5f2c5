@@ -73,6 +73,7 @@
 -r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.Graphs.dll'
 -r:'/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll'
+-r:'/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll'
 -r:'/Users/benjaminprzysucha/Library/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll'
 -r:'/Users/benjaminprzysucha/Library/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/Editor/UnityEditor.Advertisements.dll'
 -r:'/Users/benjaminprzysucha/Library/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.13/UnityEngine.Analytics.dll'
@@ -177,6 +178,7 @@
 -define:UNITY_EDITOR_OSX
 -define:ENABLE_NATIVE_ARRAY_CHECKS
 -define:UNITY_TEAM_LICENSE
+-define:ENABLE_VSTU
 'Assets/Scripts/BetterJump.cs'
 'Assets/Scripts/CameraController.cs'
 'Assets/Scripts/MoveBlock.cs'
