@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour {
 
     int jumps;
 
+	//Changes that don't matter!
+
     private void OnCollisionEnter2D(Collision2D col)
     {
         Debug.Log("Resetting Jumps");
