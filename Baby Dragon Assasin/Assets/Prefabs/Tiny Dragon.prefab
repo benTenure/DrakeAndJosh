@@ -20,10 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4144304883290566}
   - component: {fileID: 212832290069782360}
-  - component: {fileID: 61830354224448962}
+  - component: {fileID: 70967721604386204}
   - component: {fileID: 50065551829065936}
   - component: {fileID: 114593708912223036}
   - component: {fileID: 114169543223500608}
+  - component: {fileID: 95719953692240368}
   m_Layer: 0
   m_Name: Tiny Dragon
   m_TagString: Player
@@ -38,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1251792589882742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 1.64, z: 0}
+  m_LocalPosition: {x: -12.01, y: 1.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,8 +65,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &61830354224448962
-BoxCollider2D:
+--- !u!70 &70967721604386204
+CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -77,18 +78,25 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.57714283, y: 1.4914286}
-    newSize: {x: 2.69, y: 5.18}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 1.5}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.57714283, y: 1.4914286}
+  m_Direction: 0
+--- !u!95 &95719953692240368
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1251792589882742}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fba45662e86350444bc33b39d151b2e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114169543223500608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,8 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f09d6946d7d7c4b6ea7e9c10c625f518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 5
   facingRight: 1
+  playerSpeed: 5
   playerJumpPower: 5
   moveX: 0
   maxJumps: 2
