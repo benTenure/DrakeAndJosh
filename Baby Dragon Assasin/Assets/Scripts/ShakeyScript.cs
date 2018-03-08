@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class ShakeyScript : MonoBehaviour {
 
-	bool Up;
-	float timer;
+	bool Up = true;
+	float timer = 0.0f;
 
-	void OnCollisionEnter2d(Collision2D coll) {
+    private void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Player") {
 			if (timer <= 2){
 				if(Up) {
 					transform.Translate(0,0.1f,0);
 					Up = false;
 				} else {
-					transform.Translate(0, 0.1f, 0);
+					transform.Translate(0, -0.1f, 0);
 					Up = true;
 				}
 			}
