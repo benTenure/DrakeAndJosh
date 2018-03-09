@@ -6,6 +6,7 @@ public class ShakeyScript : MonoBehaviour {
 
 	bool Up = true;
 	float timer = 0.0f;
+		
 
     private void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Player") {
