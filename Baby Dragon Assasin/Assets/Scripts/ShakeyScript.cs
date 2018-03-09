@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class ShakeyScript : MonoBehaviour {
 
-	bool Up = true;
-	float timer = 0.0f;
-		
+    Animator anim;
+    Rigidbody2D rb;
+    int shakeHash = Animator.StringToHash("Platform_Shake");
 
-    private void OnCollisionEnter2D(Collision2D coll) {
+	private void Start()
+	{
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+	}
+
+	private void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Player") {
-			if (timer <= 2){
-				if(Up) {
-					transform.Translate(0,0.1f,0);
-					Up = false;
-				} else {
-					transform.Translate(0, -0.1f, 0);
-					Up = true;
-				}
-			}
-			timer += Time.deltaTime;
-			Debug.Log(timer);
+            anim.SetTrigger(shakeHash);
+            rb.bodyType = RigidbodyType2D.Dynamic;
 		}
 	}
 }
