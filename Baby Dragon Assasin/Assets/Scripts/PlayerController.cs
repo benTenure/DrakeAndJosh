@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+	[SerializeField] private bool facingRight = false;
 	[SerializeField] private int playerSpeed = 10;
-	[SerializeField] private bool facingRight = true;
 	[SerializeField] private int playerJumpPower = 1000;
 	[SerializeField] private float moveX;
+
+	//Start the player with full lives and tries
+	private int lives = 3;
+	private int tries = 1;
 
     public int maxJumps = 1;
 
@@ -37,8 +41,6 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 		PlayerMove();
-
-
 	}
 
 	void PlayerMove() {
@@ -76,5 +78,24 @@ public class PlayerController : MonoBehaviour {
 		Vector2 localScale = gameObject.transform.localScale;
 		localScale.x *= -1;
 		transform.localScale = localScale;
+	}
+
+	void HurtPlayer() {
+		if (tries > 0 && lives > 0)
+		{
+			//Hurt the player.
+			tries--;
+			//Code that will bounce the player in the opposite direction of what hurt him.
+		}
+		else if (tries == 0 && lives > 0)
+		{
+			//Take away a life and reset the player's tries
+			lives--;
+			tries = 1;
+			//Code that will reset player to most recent checkpoint
+		}
+		else {
+			//Code that will trigger a game over screen
+		}
 	}
 }
