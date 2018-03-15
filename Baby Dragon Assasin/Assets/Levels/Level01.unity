@@ -1168,6 +1168,16 @@ Prefab:
       propertyPath: m_Name
       value: platform
       objectReference: {fileID: 0}
+    - target: {fileID: 50668622351854716, guid: 476a2543dda0b4e1a98dfbdf3a3adf19,
+        type: 2}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114144324347259374, guid: 476a2543dda0b4e1a98dfbdf3a3adf19,
+        type: 2}
+      propertyPath: fallDelay
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 476a2543dda0b4e1a98dfbdf3a3adf19, type: 2}
   m_IsPrefabParent: 0
