@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class ShakeyScript : MonoBehaviour {
 
-    Animator anim;
-    Rigidbody2D rb;
-    int shakeHash = Animator.StringToHash("Platform_Shake");
+    public AnimationClip shakeClip;
+    private Animation myAnim;
+    private Rigidbody2D rb;
+    //int shakeHash = Animator.StringToHash("Platform_Shake");
 
     public float fallDelay = 2.0f;
 
 	private void Start()
 	{
-        anim = GetComponent<Animator>();
+        myAnim = GetComponent<Animation>();
         rb = GetComponent<Rigidbody2D>();
 	}
 
@@ -20,7 +21,9 @@ public class ShakeyScript : MonoBehaviour {
     {
 		if (coll.gameObject.tag == "Player") 
         {
-            anim.SetTrigger(shakeHash);
+            //myAnim.Play
+
+            //anim.SetTrigger(shakeHash);
             //rb.bodyType = RigidbodyType2D.Dynamic;
 
             StartCoroutine(FallAfterDelay());
