@@ -4,15 +4,17 @@ using UnityEngine;
 
 [RequireComponent (typeof(SpriteRenderer))]
 
-public class Tiling : MonoBehaviour {
+public class TilingScript : MonoBehaviour {
 
-    //public int offSetX = 1;
+    public int offSetX = 1;
 
     // These are used for checking for instantiation
     public bool hasRightBuddy = false;
     public bool hasLeftBuddy = false;
 
     public bool reverseScale = false;       // Used if object is not tilable
+
+    public Transform referenceCopy;
 
     private float spriteWidth = 0f;         // The width of our element
     private Camera cam;
@@ -30,10 +32,12 @@ public class Tiling : MonoBehaviour {
     {
         SpriteRenderer sRenderer = GetComponent<SpriteRenderer>();
         spriteWidth = sRenderer.sprite.bounds.size.x;
+        spriteWidth *= 2f;
+        //Debug.Log(spriteWidth);
 	}
 	
-	// Update is called once per frame
-	void Update () 
+	// This update is used primarily for cameras that do real-time tracking!
+	void LateUpdate () 
     {
         // Do we still need a buddy?
         if (hasLeftBuddy == false || hasRightBuddy == false) 
@@ -45,13 +49,16 @@ public class Tiling : MonoBehaviour {
             float edgeVisiblePositionRight = (myTransform.position.x + spriteWidth / 2) - camHorizontalExtent;
             float edgeVisiblePositionLeft = (myTransform.position.x - spriteWidth / 2) + camHorizontalExtent;
 
+            //float edgeVisiblePositionRight = (referenceCopy.position.x + spriteWidth / 2) - camHorizontalExtent;
+            //float edgeVisiblePositionLeft = (referenceCopy.position.x - spriteWidth / 2) + camHorizontalExtent;
+
             // Checking if we can see edge of our image
-            if (cam.transform.position.x >= edgeVisiblePositionRight /*- offSetX*/ && hasRightBuddy == false)
+            if (cam.transform.position.x >= edgeVisiblePositionRight - offSetX && hasRightBuddy == false)
             {
                 MakeNewBuddy(1);
                 hasRightBuddy = true;
             }
-            else if (cam.transform.position.x <= edgeVisiblePositionLeft /*+ offSetX*/ && hasLeftBuddy == false)
+            else if (cam.transform.position.x <= edgeVisiblePositionLeft + offSetX && hasLeftBuddy == false)
             {
                 MakeNewBuddy(-1);
                 hasLeftBuddy = true;
@@ -65,7 +72,7 @@ public class Tiling : MonoBehaviour {
         // Calculating new position for the new buddy
         Vector3 newPosition = new Vector3(myTransform.position.x + spriteWidth * direction, myTransform.position.y, myTransform.position.z);
         // Instantiating new buddy and storing it in a variable
-        Transform newBuddy = Instantiate(myTransform, newPosition, myTransform.rotation) as Transform;
+        Transform newBuddy = Instantiate(referenceCopy, newPosition, myTransform.rotation) as Transform;
 
         // Helps prevent unsightly seams on our tiling images
         if (reverseScale ==true)
@@ -74,15 +81,15 @@ public class Tiling : MonoBehaviour {
 
         }
 
-        newBuddy.parent = myTransform.parent;
+        newBuddy.parent = myTransform;
 
         if (direction > 0)
         {
-            newBuddy.GetComponent<Tiling>().hasLeftBuddy = true;
+            newBuddy.GetComponent<TilingScript>().hasLeftBuddy = true;
         }
         else 
         {
-            newBuddy.GetComponent<Tiling>().hasRightBuddy = true;
+            newBuddy.GetComponent<TilingScript>().hasRightBuddy = true;
         }
     }
 }

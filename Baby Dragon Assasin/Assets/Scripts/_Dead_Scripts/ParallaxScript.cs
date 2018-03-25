@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScrollingBackgroundScript : MonoBehaviour {
+public class ParallaxScript : MonoBehaviour {
 
     public Transform[] backgrounds;         // Array of everything that will be parallaxed
     public float smoothing;                 // How smoothly the effect will happen

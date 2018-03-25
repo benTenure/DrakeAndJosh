@@ -51,6 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\_Dead_Scripts\ParallaxScript.cs" />
+     <Compile Include="Assets\Scripts\_Dead_Scripts\RepeatBackgroundScript.cs" />
+     <Compile Include="Assets\Scripts\_Dead_Scripts\TilingScript.cs" />
+     <Compile Include="Assets\Scripts\_Test_Scripts\ScrollingBackgroundScript.cs" />
      <Compile Include="Assets\Scripts\BetterJump.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\MoveBlock.cs" />

@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour {
 	//Start the player with full lives and tries
 	private int lives = 3;
 	private int tries = 1;
+	private float dashDistance = 5f;
+	private float dashVelocity = 1f;
 
     public int maxJumps = 1;
 
@@ -46,10 +48,16 @@ public class PlayerController : MonoBehaviour {
 	void PlayerMove() {
 		//Controls
 		moveX = Input.GetAxis("Horizontal");
+
 		if(Input.GetButtonDown("Jump")) {
 			Jump();
             jumps = jumps + 1;
 		}
+//		if(Input.GetButtonDown("Shift"))
+//		{
+//			Vector3 newPosition = transform.position;
+//			
+//		}
 
 		//Direction the player is facing
 		if (moveX < 0.0f && !facingRight) {
