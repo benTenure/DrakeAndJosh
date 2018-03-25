@@ -1002,6 +1002,11 @@ Prefab:
       propertyPath: m_BodyType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114593708912223036, guid: c80262be2b62ce34b8b90288e53d5b7e,
+        type: 2}
+      propertyPath: dashDistance
+      value: 250
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c80262be2b62ce34b8b90288e53d5b7e, type: 2}
   m_IsPrefabParent: 0

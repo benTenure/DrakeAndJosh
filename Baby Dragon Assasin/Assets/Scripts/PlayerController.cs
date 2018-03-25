@@ -8,18 +8,16 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private int playerSpeed = 10;
 	[SerializeField] private int playerJumpPower = 1000;
 	[SerializeField] private float moveX;
+    [SerializeField] private int maxJumps = 1;
+    [SerializeField] private float dashDistance = 5f;
+    [SerializeField] private float dashVelocity = 1f;
 
 	//Start the player with full lives and tries
 	private int lives = 3;
 	private int tries = 1;
-	private float dashDistance = 5f;
-	private float dashVelocity = 1f;
 
-    public int maxJumps = 1;
-
-    int jumps;
-
-	//Changes that don't matter!
+    // Used to check how many jumps have been done before resetting
+    private int jumps;
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -42,10 +40,13 @@ public class PlayerController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		PlayerMove();
-	}
 
-	void PlayerMove() {
+        Vector3 dashPosition = new Vector3(transform.position.x + dashDistance, transform.position.y);
+
+        PlayerMove(dashPosition);
+	} 
+
+	void PlayerMove(Vector3 dashPosition) {
 		//Controls
 		moveX = Input.GetAxis("Horizontal");
 
@@ -53,11 +54,10 @@ public class PlayerController : MonoBehaviour {
 			Jump();
             jumps = jumps + 1;
 		}
-//		if(Input.GetButtonDown("Shift"))
-//		{
-//			Vector3 newPosition = transform.position;
-//			
-//		}
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+		{
+            transform.position = Vector3.Lerp(transform.position, dashPosition, Time.deltaTime);
+		}
 
 		//Direction the player is facing
 		if (moveX < 0.0f && !facingRight) {

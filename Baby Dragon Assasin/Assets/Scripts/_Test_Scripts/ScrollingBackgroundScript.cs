@@ -36,7 +36,7 @@ public class ScrollingBackgroundScript : MonoBehaviour {
 		transform.position += Vector3.right * (delta_X * parallaxSmoothing);
 		lastCamera_X = cameraTransform.position.x;
 
-		transform.position = cameraTransform.position;
+		//transform.position = cameraTransform.position;
 	}
 
 	// Update is called once per frame
