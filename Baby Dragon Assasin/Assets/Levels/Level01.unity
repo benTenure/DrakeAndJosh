@@ -1005,7 +1005,22 @@ Prefab:
     - target: {fileID: 114593708912223036, guid: c80262be2b62ce34b8b90288e53d5b7e,
         type: 2}
       propertyPath: dashDistance
-      value: 250
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 212832290069782360, guid: c80262be2b62ce34b8b90288e53d5b7e,
+        type: 2}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114593708912223036, guid: c80262be2b62ce34b8b90288e53d5b7e,
+        type: 2}
+      propertyPath: dashSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114593708912223036, guid: c80262be2b62ce34b8b90288e53d5b7e,
+        type: 2}
+      propertyPath: maxDashes
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c80262be2b62ce34b8b90288e53d5b7e, type: 2}
@@ -1151,6 +1166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundSize: 23.04
   parallaxSmoothing: 0
+  parallaxSmoothing_y: 0
 --- !u!4 &418428797
 Transform:
   m_ObjectHideFlags: 0
@@ -2197,7 +2213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &900586882
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2258,8 +2274,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 900586881}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.6066, y: -4.132, z: -0.5}
-  m_LocalScale: {x: 3.8007674, y: 3.2981668, z: 1}
+  m_LocalPosition: {x: 7.617, y: -4.143, z: -0.5}
+  m_LocalScale: {x: 3.8223557, y: 3.319755, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -3277,7 +3293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1264429092
 Transform:
   m_ObjectHideFlags: 0
@@ -4287,6 +4303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundSize: 23.04
   parallaxSmoothing: 0.2
+  parallaxSmoothing_y: 0
 --- !u!4 &1695811778
 Transform:
   m_ObjectHideFlags: 0
@@ -4700,6 +4717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundSize: 23.04
   parallaxSmoothing: 0.35
+  parallaxSmoothing_y: 0
 --- !u!4 &1926596658
 Transform:
   m_ObjectHideFlags: 0
@@ -5266,7 +5284,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4119456440508334, guid: cb1ca993a0a9b457c9505060f4db1fd0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -16.396
+      value: -17.399
       objectReference: {fileID: 0}
     - target: {fileID: 4119456440508334, guid: cb1ca993a0a9b457c9505060f4db1fd0, type: 2}
       propertyPath: m_LocalPosition.y
@@ -5302,7 +5320,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4119456440508334, guid: cb1ca993a0a9b457c9505060f4db1fd0, type: 2}
       propertyPath: m_LocalScale.x
-      value: 3.990519
+      value: 6.58383
       objectReference: {fileID: 0}
     - target: {fileID: 4119456440508334, guid: cb1ca993a0a9b457c9505060f4db1fd0, type: 2}
       propertyPath: m_LocalScale.y
@@ -5319,7 +5337,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1553515692479552, guid: cb1ca993a0a9b457c9505060f4db1fd0, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb1ca993a0a9b457c9505060f4db1fd0, type: 2}

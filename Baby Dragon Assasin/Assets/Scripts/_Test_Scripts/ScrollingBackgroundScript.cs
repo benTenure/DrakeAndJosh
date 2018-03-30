@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ScrollingBackgroundScript : MonoBehaviour {
 
-	public float backgroundSize;
-	public float parallaxSmoothing;
+    [SerializeField] private float backgroundSize;
+    [SerializeField] private float parallaxSmoothing;
+    [SerializeField] private float parallaxSmoothing_y;
 
 	private Transform cameraTransform;
 	private Transform[] layers;
@@ -13,15 +14,18 @@ public class ScrollingBackgroundScript : MonoBehaviour {
 	private int rightIndex;
 	private float viewZone = 10f;
 	private float lastCamera_X;
+    private float lastCamera_Y;
 
 	// Use this for initialization
 	void Start () 
 	{
 		cameraTransform = Camera.main.transform;
 		lastCamera_X = cameraTransform.position.x;
+        lastCamera_Y = cameraTransform.position.y;
+
 		layers = new Transform[transform.childCount];
 
-		for(int i = 0; i < transform.childCount; i++)
+		for (int i = 0; i < transform.childCount; i++)
 		{
 			layers[i] = transform.GetChild(i);
 		}
@@ -32,21 +36,26 @@ public class ScrollingBackgroundScript : MonoBehaviour {
 	
 	void LateUpdate ()
 	{
+        //Parallax in the x-direction
 		float delta_X = cameraTransform.position.x - lastCamera_X;
 		transform.position += Vector3.right * (delta_X * parallaxSmoothing);
 		lastCamera_X = cameraTransform.position.x;
 
-		//transform.position = cameraTransform.position;
+        //Parallax in the y-direction
+        float delta_Y = cameraTransform.position.y - lastCamera_Y;
+        transform.position += Vector3.up * (delta_Y * parallaxSmoothing_y);
+        lastCamera_Y = cameraTransform.position.y;
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		if(cameraTransform.position.x < (layers[leftIndex].transform.position.x + viewZone))
+		if (cameraTransform.position.x < (layers[leftIndex].transform.position.x + viewZone))
 		{
 			ScrollLeft();
 		}
-		if(cameraTransform.position.x > (layers[rightIndex].transform.position.x - viewZone))
+
+		if (cameraTransform.position.x > (layers[rightIndex].transform.position.x - viewZone))
 		{
 			ScrollRight();
 		}
@@ -58,7 +67,7 @@ public class ScrollingBackgroundScript : MonoBehaviour {
 		leftIndex = rightIndex;
 		rightIndex--;
 
-		if(rightIndex < 0)
+		if (rightIndex < 0)
 		{
 			rightIndex = layers.Length - 1;
 		}
@@ -70,7 +79,7 @@ public class ScrollingBackgroundScript : MonoBehaviour {
 		rightIndex = leftIndex;
 		leftIndex++;
 
-		if(leftIndex == layers.Length)
+		if (leftIndex == layers.Length)
 		{
 			leftIndex = 0;
 		}

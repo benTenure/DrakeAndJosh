@@ -4,25 +4,40 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	[SerializeField] private bool facingRight = false;
-	[SerializeField] private int playerSpeed = 10;
-	[SerializeField] private int playerJumpPower = 1000;
+	[SerializeField] private bool facingRight = true;
+	[SerializeField] private int playerSpeed;
+	[SerializeField] private int playerJumpPower;
 	[SerializeField] private float moveX;
-    [SerializeField] private int maxJumps = 1;
-    [SerializeField] private float dashDistance = 5f;
-    [SerializeField] private float dashVelocity = 1f;
+    [SerializeField] private int maxJumps;
+    [SerializeField] private int maxDashes;
+    [SerializeField] private float dashDistance;
+    [SerializeField] private float dashSpeed;
+
+    //Rigidbody used for gravity and such
+    private Rigidbody2D playerRB;
 
 	//Start the player with full lives and tries
 	private int lives = 3;
 	private int tries = 1;
 
-    // Used to check how many jumps have been done before resetting
+    //Used to check how many jumps have been done before resetting
     private int jumps;
+    private int dashes;
 
-    private void OnCollisionEnter2D(Collision2D col)
+    //Variables used for dashin mechanic
+    private Vector3 dashPOS;
+    private bool isDashing = false;
+
+	private void Start()
+	{
+        playerRB = GetComponent<Rigidbody2D>();
+	}
+
+	private void OnCollisionEnter2D(Collision2D col)
     {
         Debug.Log("Resetting Jumps");
         jumps = 0;
+        dashes = 0;
 
         if (col.gameObject.tag == "Floor")
         {
@@ -39,40 +54,67 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-
-        Vector3 dashPosition = new Vector3(transform.position.x + dashDistance, transform.position.y);
-
-        PlayerMove(dashPosition);
+    private void Update () {
+        PlayerMove();
 	} 
 
-	void PlayerMove(Vector3 dashPosition) {
-		//Controls
-		moveX = Input.GetAxis("Horizontal");
+	private void PlayerMove() {
 
-		if(Input.GetButtonDown("Jump")) {
-			Jump();
-            jumps = jumps + 1;
-		}
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-		{
-            transform.position = Vector3.Lerp(transform.position, dashPosition, Time.deltaTime);
-		}
+        //Regular Player controls
+        if (!isDashing)
+        {
+            playerRB.bodyType = RigidbodyType2D.Dynamic;
 
-		//Direction the player is facing
-		if (moveX < 0.0f && !facingRight) {
-			FlipPlayer();
-		} else if (moveX > 0.0f && facingRight) {
-			FlipPlayer();
-		}
+            //Controls
+            moveX = Input.GetAxis("Horizontal");
 
-		//Physics (Super basic way of getting the character moving, we can mess with it as we go forward)
-		gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2 (moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+            if (Input.GetButtonDown("Jump"))
+            {
+                Jump();
+                jumps = jumps + 1;
+            }
 
+            if (Input.GetKeyDown(KeyCode.LeftShift) && (dashes < maxDashes))
+            {
+                //Debug.Log("I'm dashing now!");
+                dashPOS = GetDashPosition();
+                isDashing = true;
+                dashes++;
+            }
+
+            //Direction the player is facing
+            if (moveX < 0.0f && facingRight)
+            {
+                FlipPlayer();
+            }
+            else if (moveX > 0.0f && !facingRight)
+            {
+                FlipPlayer();
+            }
+
+            //Physics (Super basic way of getting the character moving, we can mess with it as we go forward)
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+
+        }
+
+        //Player cannot add input until dash has ended
+        else
+        {
+            playerRB.bodyType = RigidbodyType2D.Static;
+
+            if ((transform.position.x >= dashPOS.x && facingRight) || (transform.position.x <= dashPOS.x && !facingRight))
+            {
+                isDashing = false;
+            }
+            else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, dashPOS, dashSpeed * Time.deltaTime);
+            }
+        }
 
 	}
 
-	void Jump() {
+	private void Jump() {
         // Controls for the double jump (Glide later)
         if(jumps < maxJumps )
         {
@@ -81,14 +123,14 @@ public class PlayerController : MonoBehaviour {
         }
 	}
 
-	void FlipPlayer() {
+	private void FlipPlayer() {
 		facingRight = !facingRight;
 		Vector2 localScale = gameObject.transform.localScale;
 		localScale.x *= -1;
 		transform.localScale = localScale;
 	}
 
-	void HurtPlayer() {
+	private void HurtPlayer() {
 		if (tries > 0 && lives > 0)
 		{
 			//Hurt the player.
@@ -106,4 +148,20 @@ public class PlayerController : MonoBehaviour {
 			//Code that will trigger a game over screen
 		}
 	}
+
+    private Vector3 GetDashPosition() 
+    {
+        //Dash to the right
+        if (facingRight)
+        {
+            Vector3 newPosition = new Vector3(transform.position.x + dashDistance, transform.position.y);
+            return newPosition;
+        }
+        //Dash to the left
+        else
+        {
+            Vector3 newPosition = new Vector3(transform.position.x - dashDistance, transform.position.y);
+            return newPosition;
+        }
+    }
 }
