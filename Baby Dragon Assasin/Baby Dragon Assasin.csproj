@@ -331,6 +331,7 @@
     <Compile Include="Assets\Scripts\_Test_Scripts\ScrollingBackgroundScript.cs" />
     <Compile Include="Assets\Scripts\BetterJump.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\DustBunny.cs" />
     <Compile Include="Assets\Scripts\GameManagerScript.cs" />
     <Compile Include="Assets\Scripts\HelathSystemScript.cs" />
     <Compile Include="Assets\Scripts\MoveBlock.cs" />
