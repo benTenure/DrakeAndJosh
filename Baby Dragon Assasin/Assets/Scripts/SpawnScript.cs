@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SpawnScript : MonoBehaviour {
 
-	//[SerializeField] private Texture2D[] textures;
 	[SerializeField] private Sprite[] sheet = new Sprite[26];
 
 	private int minTexture = 0;

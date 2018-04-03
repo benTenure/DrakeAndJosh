@@ -97,7 +97,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1626993928388136}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 177bab99164034cff91e4396b6496f7c, type: 2}
   m_CullingMode: 0
@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e973bc9f32c4ed184bb02305d4ed31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeClip: {fileID: 0}
+  fallDelay: 0.5
 --- !u!114 &114404257902844978
 MonoBehaviour:
   m_ObjectHideFlags: 1
