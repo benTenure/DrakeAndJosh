@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 
     //Rigidbody used for gravity and such
     private Rigidbody2D playerRB;
+    private Animator playerAnim;
 
 	//Start the player with full lives and tries
 	private int lives = 3;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour {
 	private void Start()
 	{
         playerRB = GetComponent<Rigidbody2D>();
+        playerAnim = GetComponent<Animator>();
 	}
 
 	private void OnCollisionEnter2D(Collision2D col)
@@ -90,6 +92,15 @@ public class PlayerController : MonoBehaviour {
             else if (moveX > 0.0f && !facingRight)
             {
                 FlipPlayer();
+            }
+
+            if (moveX != 0.0f)
+            {
+                StartRunning(true);
+            }
+            else
+            {
+                StartRunning(false);
             }
 
             //Physics (Super basic way of getting the character moving, we can mess with it as we go forward)
@@ -163,5 +174,10 @@ public class PlayerController : MonoBehaviour {
             Vector3 newPosition = new Vector3(transform.position.x - dashDistance, transform.position.y);
             return newPosition;
         }
+    }
+
+    private void StartRunning(bool state)
+    {
+        playerAnim.SetBool("isRunning", state);
     }
 }
