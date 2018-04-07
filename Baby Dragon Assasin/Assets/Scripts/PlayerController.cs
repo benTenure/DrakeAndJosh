@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour {
     private int jumps;
     private int dashes;
 
-    //Variables used for dashin mechanic
+    //Variables used for dashing mechanic
     private Vector3 dashPOS;
     private bool isDashing = false;
 
@@ -70,15 +70,26 @@ public class PlayerController : MonoBehaviour {
             //Controls
             moveX = Input.GetAxis("Horizontal");
 
+            //Moving from left to right or vice versa
+            if(Input.GetButton("Horizontal"))
+            {
+                StartRunning(true);
+            }
+            else
+            {
+                StartRunning(false);    
+            }
+
+            //Jump controls
             if (Input.GetButtonDown("Jump"))
             {
                 Jump();
                 jumps = jumps + 1;
             }
 
+            //Dash controls
             if (Input.GetKeyDown(KeyCode.LeftShift) && (dashes < maxDashes))
             {
-                //Debug.Log("I'm dashing now!");
                 dashPOS = GetDashPosition();
                 isDashing = true;
                 dashes++;
@@ -92,15 +103,6 @@ public class PlayerController : MonoBehaviour {
             else if (moveX > 0.0f && !facingRight)
             {
                 FlipPlayer();
-            }
-
-            if (moveX != 0.0f)
-            {
-                StartRunning(true);
-            }
-            else
-            {
-                StartRunning(false);
             }
 
             //Physics (Super basic way of getting the character moving, we can mess with it as we go forward)
