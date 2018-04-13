@@ -8,6 +8,7 @@ TagManager:
   - Platform
   - Lava
   - Enemy
+  - Cover
   layers:
   - Default
   - TransparentFX
