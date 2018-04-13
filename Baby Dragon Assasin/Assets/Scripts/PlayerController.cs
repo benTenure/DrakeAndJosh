@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 
     //Rigidbody used for gravity and such
     private Rigidbody2D playerRB;
+    private Animator playerAnim;
 
 	//Start the player with full lives and tries
 	private int lives = 3;
@@ -24,13 +25,14 @@ public class PlayerController : MonoBehaviour {
     private int jumps;
     private int dashes;
 
-    //Variables used for dashin mechanic
+    //Variables used for dashing mechanic
     private Vector3 dashPOS;
     private bool isDashing = false;
 
 	private void Start()
 	{
         playerRB = GetComponent<Rigidbody2D>();
+        playerAnim = GetComponent<Animator>();
 	}
 
 	private void OnCollisionEnter2D(Collision2D col)
@@ -68,15 +70,26 @@ public class PlayerController : MonoBehaviour {
             //Controls
             moveX = Input.GetAxis("Horizontal");
 
+            //Moving from left to right or vice versa
+            if(Input.GetButton("Horizontal"))
+            {
+                StartRunning(true);
+            }
+            else
+            {
+                StartRunning(false);    
+            }
+
+            //Jump controls
             if (Input.GetButtonDown("Jump"))
             {
                 Jump();
                 jumps = jumps + 1;
             }
 
+            //Dash controls
             if (Input.GetKeyDown(KeyCode.LeftShift) && (dashes < maxDashes))
             {
-                //Debug.Log("I'm dashing now!");
                 dashPOS = GetDashPosition();
                 isDashing = true;
                 dashes++;
@@ -163,5 +176,10 @@ public class PlayerController : MonoBehaviour {
             Vector3 newPosition = new Vector3(transform.position.x - dashDistance, transform.position.y);
             return newPosition;
         }
+    }
+
+    private void StartRunning(bool state)
+    {
+        playerAnim.SetBool("isRunning", state);
     }
 }
