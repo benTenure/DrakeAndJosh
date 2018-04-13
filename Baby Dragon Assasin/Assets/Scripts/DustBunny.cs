@@ -4,34 +4,41 @@ using UnityEngine;
 
 public class DustBunny : MonoBehaviour {
     // https://unity3d.com/learn/tutorials/topics/animation/animator-scripting
-    Animator anim;
-    float attackTime = 0.0f; // number of seconds to attack for
+    private Animator anim;
+    private bool facingRight = false;
+    private Transform playerTrans; // player transform
 
     void Start() {
+        playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update() {
-        if (anim.GetBool("attacking") == true) // if already attacking
+        // check distance from player
+        if (playerTrans)
         {
-            attackTime -= Time.deltaTime;
-            if (attackTime < 0)
-            {
-                ToggleAttack(false);           // stop attacking
-            }
+            float xDist = this.transform.position.x - playerTrans.position.x;
+            float yDist = this.transform.position.y - playerTrans.position.y;
+            // face the player
+            if (xDist > 0 && facingRight || xDist < 0 && !facingRight)
+                flipSprite();
+
+            // attack if the player is too close
+            if (Mathf.Abs(xDist) < 5f && Mathf.Abs(yDist) < 1f)
+                ToggleAttack(true);
+            else
+                ToggleAttack(false);
+
         }
     }
 
-   // every time the player collides with the bunny, have the bunny attack for 4 seconds
-   // TODO: instead toggle the attack every time the player is close
-   // TODO: make the bunny face the player
+    // TODO: add some way for the player to kill the bunny
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Player")
         {
-            Debug.Log("player collided with bunny");
-            ToggleAttack(true);     // start attacking
+
         }
     }
 
@@ -39,14 +46,12 @@ public class DustBunny : MonoBehaviour {
     void ToggleAttack(bool state)
     {
         anim.SetBool("attacking", state);
-        if (state)
-        {
-            attackTime = 4.0f;      // reset the attack timer
-        }
-        else
-        {
-            attackTime = 0.0f;
-        }
+    }
 
+    // flip the bunny to face the opposite way
+    void flipSprite()
+    {
+        anim.transform.Rotate(0, 180, 0);
+        facingRight = !facingRight;
     }
 }
