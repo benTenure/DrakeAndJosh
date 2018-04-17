@@ -966,12 +966,16 @@ Prefab:
     - target: {fileID: 212390064494827654, guid: a05a28a3da089401f9d02bcbad970b25,
         type: 2}
       propertyPath: m_SortingLayerID
-      value: -1063658831
+      value: -1984193191
       objectReference: {fileID: 0}
     - target: {fileID: 212390064494827654, guid: a05a28a3da089401f9d02bcbad970b25,
         type: 2}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1464920310323792, guid: a05a28a3da089401f9d02bcbad970b25, type: 2}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a05a28a3da089401f9d02bcbad970b25, type: 2}
@@ -1019,7 +1023,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4144304883290566, guid: c80262be2b62ce34b8b90288e53d5b7e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -5.55
+      value: -1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4144304883290566, guid: c80262be2b62ce34b8b90288e53d5b7e, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1081,12 +1085,12 @@ Prefab:
     - target: {fileID: 212832290069782360, guid: c80262be2b62ce34b8b90288e53d5b7e,
         type: 2}
       propertyPath: m_SortingLayerID
-      value: -1984193191
+      value: -55340519
       objectReference: {fileID: 0}
     - target: {fileID: 212832290069782360, guid: c80262be2b62ce34b8b90288e53d5b7e,
         type: 2}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c80262be2b62ce34b8b90288e53d5b7e, type: 2}
@@ -4388,6 +4392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 1033879663}
+  player: {fileID: 1033879655}
   restartDelay: 5
 --- !u!1001 &1708630937
 Prefab:
