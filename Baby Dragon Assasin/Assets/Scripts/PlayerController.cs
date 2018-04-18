@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private bool facingRight = true;
 	[SerializeField] private int playerSpeed;
 	[SerializeField] private int playerJumpPower;
+    [SerializeField] private float moveX;
     [SerializeField] private int maxJumps;
     [SerializeField] private int maxDashes;
     [SerializeField] private float dashDistance;
@@ -23,7 +24,6 @@ public class PlayerController : MonoBehaviour {
     //Used to check how many jumps have been done before resetting
     private int jumps;
     private int dashes;
-    private float moveVelocity = 5f;
 
     //Variables used for dashing mechanic
     private Vector3 dashPOS;
@@ -38,20 +38,16 @@ public class PlayerController : MonoBehaviour {
 
 	private void OnCollisionEnter2D(Collision2D col)
     {
-        //Debug.Log("Resetting Jumps");
-        //jumps = 0;
-        //dashes = 0;
-
         if (col.gameObject.tag == "Floor")
         {
-            Debug.Log("Resetting Jumps");
+            //playerAnim.SetBool("isGrounded", true);
             jumps = 0;
             dashes = 0;
             Debug.Log("Touching Floor");
         }
         else if (col.gameObject.tag == "Platform")
         {
-            Debug.Log("Resetting Jumps");
+            //playerAnim.SetBool("isGrounded", true);
             jumps = 0;
             dashes = 0;
             Debug.Log("Touching Platform");
@@ -60,12 +56,14 @@ public class PlayerController : MonoBehaviour {
         {
             Debug.Log("Touching Lava!");
         }
+        else {
+            //playerAnim.SetBool("isGrounded", false);
+        }
     }
 
     // Update is called once per frame
-    private void FixedUpdate () {
+    private void Update () {
         PlayerMove();
-        playerRB.velocity = new Vector2(moveVelocity, playerRB.velocity.y);
 	}
 
 	private void PlayerMove() {
@@ -77,16 +75,23 @@ public class PlayerController : MonoBehaviour {
             {
                 playerRB.bodyType = RigidbodyType2D.Dynamic;
 
-                MoveControl();
+                moveX = Input.GetAxisRaw("Horizontal");
 
                 //If player is moving at all, animate
-                if ((playerRB.velocity.x != 0.0f))
+                if (moveX != 0f)
                 {
                     StartRunning(true);
                 }
                 else
                 {
                     StartRunning(false);
+                }
+
+                if(Input.GetKeyDown(KeyCode.Space) || playerRB.velocity.y != 0f){
+                    playerAnim.SetBool("isGrounded", false);
+                }
+                else {
+                    playerAnim.SetBool("isGrounded", true);
                 }
 
                 //Jump controls
@@ -104,18 +109,18 @@ public class PlayerController : MonoBehaviour {
                     dashes++;
                 }
 
-                ////Direction the player is facing
-                //if (moveX < 0.0f && facingRight)
-                //{
-                //    FlipPlayer();
-                //}
-                //else if (moveX > 0.0f && !facingRight)
-                //{
-                //    FlipPlayer();
-                //}
+                //Direction the player is facing
+                if (Input.GetAxisRaw("Horizontal") < 0 && facingRight)
+                {
+                    FlipPlayer();
+                }
+                else if (Input.GetAxisRaw("Horizontal") > 0 && !facingRight)
+                {
+                    FlipPlayer();
+                }
 
                 //Physics (Super basic way of getting the character moving, we can mess with it as we go forward)
-                //gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+                gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
 
             }
 
@@ -191,19 +196,5 @@ public class PlayerController : MonoBehaviour {
     private void StartRunning(bool state)
     {
         playerAnim.SetBool("isRunning", state);
-    }
-
-    private void MoveControl() {
-
-        moveVelocity = 0f;
-
-        if (Input.GetAxisRaw("Horizontal") < 0 && facingRight) {
-            moveVelocity = -playerSpeed;
-            FlipPlayer();
-        }
-        else if (Input.GetAxisRaw("Horizontal") > 0 && !facingRight) {
-            moveVelocity = playerSpeed;
-            FlipPlayer();
-        }
     }
 }
