@@ -46,12 +46,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: No Hide
+  - name: Player Hiding
     uniqueID: 3231308465
     locked: 0
-  - name: Player
+  - name: Cover
     uniqueID: 2310774105
     locked: 0
-  - name: Hide
+  - name: Player
     uniqueID: 4239626777
     locked: 0

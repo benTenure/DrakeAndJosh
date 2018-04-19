@@ -25,6 +25,8 @@ GameObject:
   - component: {fileID: 114593708912223036}
   - component: {fileID: 114169543223500608}
   - component: {fileID: 95719953692240368}
+  - component: {fileID: 114118370074311002}
+  - component: {fileID: 114050420755274984}
   m_Layer: 0
   m_Name: Tiny Dragon
   m_TagString: Player
@@ -39,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1251792589882742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.01, y: 1.94, z: 0}
+  m_LocalPosition: {x: -1.2, y: -0.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,6 +99,31 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114050420755274984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1251792589882742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ae1a2c3d004444f3be0df7679b9a5ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114118370074311002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1251792589882742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044cd79348f964c948460f25d9fdfa2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 2
+  currentHealth: 0
+  playerLives: 1
 --- !u!114 &114169543223500608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,6 +153,11 @@ MonoBehaviour:
   playerJumpPower: 5
   moveX: 0
   maxJumps: 2
+  maxDashes: 1
+  dashDistance: 3
+  dashSpeed: 15
+  isDashing: 0
+  isHiding: 0
 --- !u!212 &212832290069782360
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -157,12 +189,12 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -55340519
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300010, guid: 6ad0a91a6177e3649a789d7de05f63ea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2.69, y: 5.18}

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4055848314582292}
   - component: {fileID: 212390064494827654}
   - component: {fileID: 61378483808798968}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Hide_Box
   m_TagString: Cover
   m_Icon: {fileID: 0}
@@ -97,8 +97,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1063658831
-  m_SortingLayer: 1
+  m_SortingLayerID: -1984193191
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 86676c88a2feb4ef1a7554c5743f78d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

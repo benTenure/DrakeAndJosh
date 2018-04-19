@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private bool facingRight = true;
 	[SerializeField] private int playerSpeed;
 	[SerializeField] private int playerJumpPower;
-	[SerializeField] private float moveX;
+    [SerializeField] private float moveX;
     [SerializeField] private int maxJumps;
     [SerializeField] private int maxDashes;
     [SerializeField] private float dashDistance;
@@ -27,7 +27,8 @@ public class PlayerController : MonoBehaviour {
 
     //Variables used for dashing mechanic
     private Vector3 dashPOS;
-    private bool isDashing = false;
+    public bool isDashing = false;
+    public bool isHiding = false;
 
 	private void Start()
 	{
@@ -37,91 +38,105 @@ public class PlayerController : MonoBehaviour {
 
 	private void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log("Resetting Jumps");
-        jumps = 0;
-        dashes = 0;
-
         if (col.gameObject.tag == "Floor")
         {
+            //playerAnim.SetBool("isGrounded", true);
+            jumps = 0;
+            dashes = 0;
             Debug.Log("Touching Floor");
         }
         else if (col.gameObject.tag == "Platform")
         {
+            //playerAnim.SetBool("isGrounded", true);
+            jumps = 0;
+            dashes = 0;
             Debug.Log("Touching Platform");
         }
         else if (col.gameObject.tag == "Lava") 
         {
             Debug.Log("Touching Lava!");
         }
+        else {
+            //playerAnim.SetBool("isGrounded", false);
+        }
     }
 
     // Update is called once per frame
     private void Update () {
         PlayerMove();
-	} 
+	}
 
 	private void PlayerMove() {
 
-        //Regular Player controls
-        if (!isDashing)
+        if (!isHiding)
         {
-            playerRB.bodyType = RigidbodyType2D.Dynamic;
-
-            //Controls
-            moveX = Input.GetAxis("Horizontal");
-
-            //Moving from left to right or vice versa
-            if(Input.GetButton("Horizontal"))
+            //Regular Player controls
+            if (!isDashing)
             {
-                StartRunning(true);
+                playerRB.bodyType = RigidbodyType2D.Dynamic;
+
+                moveX = Input.GetAxisRaw("Horizontal");
+
+                //If player is moving at all, animate
+                if (moveX != 0f)
+                {
+                    StartRunning(true);
+                }
+                else
+                {
+                    StartRunning(false);
+                }
+
+                if(Input.GetKeyDown(KeyCode.Space) || playerRB.velocity.y != 0f){
+                    playerAnim.SetBool("isGrounded", false);
+                }
+                else {
+                    playerAnim.SetBool("isGrounded", true);
+                }
+
+                //Jump controls
+                if (Input.GetButtonDown("Jump"))
+                {
+                    Jump();
+                    jumps = jumps + 1;
+                }
+
+                //Dash controls
+                if (Input.GetKeyDown(KeyCode.LeftShift) && (dashes < maxDashes))
+                {
+                    dashPOS = GetDashPosition();
+                    isDashing = true;
+                    dashes++;
+                }
+
+                //Direction the player is facing
+                if (Input.GetAxisRaw("Horizontal") < 0 && facingRight)
+                {
+                    FlipPlayer();
+                }
+                else if (Input.GetAxisRaw("Horizontal") > 0 && !facingRight)
+                {
+                    FlipPlayer();
+                }
+
+                //Physics (Super basic way of getting the character moving, we can mess with it as we go forward)
+                gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+
             }
+
+            //Player cannot add input until dash has ended
             else
             {
-                StartRunning(false);    
-            }
+                playerRB.bodyType = RigidbodyType2D.Static;
 
-            //Jump controls
-            if (Input.GetButtonDown("Jump"))
-            {
-                Jump();
-                jumps = jumps + 1;
-            }
-
-            //Dash controls
-            if (Input.GetKeyDown(KeyCode.LeftShift) && (dashes < maxDashes))
-            {
-                dashPOS = GetDashPosition();
-                isDashing = true;
-                dashes++;
-            }
-
-            //Direction the player is facing
-            if (moveX < 0.0f && facingRight)
-            {
-                FlipPlayer();
-            }
-            else if (moveX > 0.0f && !facingRight)
-            {
-                FlipPlayer();
-            }
-
-            //Physics (Super basic way of getting the character moving, we can mess with it as we go forward)
-            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
-
-        }
-
-        //Player cannot add input until dash has ended
-        else
-        {
-            playerRB.bodyType = RigidbodyType2D.Static;
-
-            if ((transform.position.x >= dashPOS.x && facingRight) || (transform.position.x <= dashPOS.x && !facingRight))
-            {
-                isDashing = false;
-            }
-            else
-            {
-                transform.position = Vector3.MoveTowards(transform.position, dashPOS, dashSpeed * Time.deltaTime);
+                if ((transform.position.x >= dashPOS.x && facingRight) || (transform.position.x <= dashPOS.x && !facingRight))
+                {
+                    isDashing = false;
+                }
+                else
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, dashPOS, dashSpeed * Time.deltaTime);
+                }
             }
         }
 
