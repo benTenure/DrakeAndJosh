@@ -30,7 +30,7 @@ public class GameManagerScript : MonoBehaviour {
 
         if (restartTimer >= restartDelay)
         {
-            SceneManager.LoadScene("Level01");
+            SceneManager.LoadScene("Level00");
         }
     }
 }
