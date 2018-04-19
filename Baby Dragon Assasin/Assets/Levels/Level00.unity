@@ -2880,6 +2880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 599917338}
   - component: {fileID: 599917337}
+  - component: {fileID: 599917339}
   m_Layer: 0
   m_Name: golden block
   m_TagString: Untagged
@@ -2944,6 +2945,31 @@ Transform:
   m_Father: {fileID: 2114069332}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &599917339
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 599917336}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.29, y: 1.27}
+    newSize: {x: 1.29, y: 1.27}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.29, y: 1.27}
+  m_EdgeRadius: 0
 --- !u!1001 &604618248
 Prefab:
   m_ObjectHideFlags: 0
@@ -2999,6 +3025,7 @@ GameObject:
   m_Component:
   - component: {fileID: 629379126}
   - component: {fileID: 629379125}
+  - component: {fileID: 629379127}
   m_Layer: 0
   m_Name: golden block (2)
   m_TagString: Untagged
@@ -3063,6 +3090,31 @@ Transform:
   m_Father: {fileID: 2114069332}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &629379127
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 629379124}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.29, y: 1.27}
+    newSize: {x: 1.29, y: 1.27}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.29, y: 1.27}
+  m_EdgeRadius: 0
 --- !u!1001 &635097384
 Prefab:
   m_ObjectHideFlags: 0
@@ -7453,6 +7505,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1703417588}
   - component: {fileID: 1703417587}
+  - component: {fileID: 1703417589}
   m_Layer: 0
   m_Name: golden block (1)
   m_TagString: Untagged
@@ -7517,6 +7570,31 @@ Transform:
   m_Father: {fileID: 2114069332}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1703417589
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1703417586}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.29, y: 1.27}
+    newSize: {x: 1.29, y: 1.27}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.29, y: 1.27}
+  m_EdgeRadius: 0
 --- !u!1001 &1707379939
 Prefab:
   m_ObjectHideFlags: 0
