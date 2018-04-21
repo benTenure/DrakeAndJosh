@@ -7,7 +7,7 @@ public class DustBunny : MonoBehaviour {
     private Animator anim;
     private bool facingRight = false;
     private Transform playerTrans; // player transform
-    public Rigidbody2D ballPrefab;
+    public GameObject ballPrefab;  // projectile to throw
     private float lastAttackTime = 0f;
     public float speed;
     public float xDistTrigger;
@@ -57,6 +57,7 @@ public class DustBunny : MonoBehaviour {
     // do a projectile attack towards the player
     private void attack()
     {
+        // perhaps keep one ballPrefab hidden so we can keep cloning it (without it destroying itself)
         // source and destination points for the projectile
         Vector2 dest = new Vector2(playerTrans.position.x, playerTrans.position.y);
         Vector2 src = new Vector2(this.transform.position.x, this.transform.position.y);
@@ -71,10 +72,13 @@ public class DustBunny : MonoBehaviour {
         {
             Debug.DrawLine(src, hit.point, Color.red);
             // create a ball object
-            // TODO: consider making the ball not a rigidbody, just have a collider that will trigger it to disappear
-            ballPrefab = Instantiate(ballPrefab) as Rigidbody2D;
-            ballPrefab.transform.position = transform.position; // spawn at location of dust bunny
-            ballPrefab.velocity = speed*(dest-src);
+            // https://gamedev.stackexchange.com/questions/98328/instantiate-a-prefab-and-call-a-method-from-its-script
+            // https://www.youtube.com/watch?v=Q9xKjShQwsI
+
+            ballPrefab = Instantiate(ballPrefab) as GameObject;
+            BallProjectile projectile = ballPrefab.GetComponent<BallProjectile>();
+            projectile.transform.position = transform.position; // spawn at location of dust bunny
+            projectile.velocity = speed * (dest - src)/(dest-src).magnitude;         // set the velocity variable of the ball (this is called before start() in ball)
         }
     }
 
