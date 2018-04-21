@@ -9,6 +9,9 @@ public class DustBunny : MonoBehaviour {
     private Transform playerTrans; // player transform
     public Rigidbody2D ballPrefab;
     private float lastAttackTime = 0f;
+    public float speed;
+    public float xDistTrigger;
+    public float yDistTrigger;
 
     // projectile stuff https://www.youtube.com/watch?v=KKgtC_Gy65c
     public LayerMask whatToHit;
@@ -32,7 +35,7 @@ public class DustBunny : MonoBehaviour {
                 flipSprite();
 
             // attack if the player is too close
-            if (Mathf.Abs(xDist) < 5f && Mathf.Abs(yDist) < 1f)
+            if (Mathf.Abs(xDist) < xDistTrigger && Mathf.Abs(yDist) < yDistTrigger)
             {
                 ToggleAttack(true);
             }
@@ -54,11 +57,10 @@ public class DustBunny : MonoBehaviour {
     // do a projectile attack towards the player
     private void attack()
     {
-
         // source and destination points for the projectile
         Vector2 dest = new Vector2(playerTrans.position.x, playerTrans.position.y);
         Vector2 src = new Vector2(this.transform.position.x, this.transform.position.y);
-        RaycastHit2D hit = Physics2D.Raycast(src, dest-src, 5, whatToHit);
+        RaycastHit2D hit = Physics2D.Raycast(src, dest-src, 200, whatToHit);
         Debug.DrawLine(src, dest);
         Debug.Log("\nattacking from " + src + " to " + dest);
         // note for later: under the dust bunny script in the inpspector, you can choose which layers it can be hit
@@ -72,16 +74,16 @@ public class DustBunny : MonoBehaviour {
             // TODO: consider making the ball not a rigidbody, just have a collider that will trigger it to disappear
             ballPrefab = Instantiate(ballPrefab) as Rigidbody2D;
             ballPrefab.transform.position = transform.position; // spawn at location of dust bunny
-            ballPrefab.velocity = 5*(dest-src);
+            ballPrefab.velocity = speed*(dest-src);
         }
     }
 
     // control whether the dust bunny is attacking or not
-    void ToggleAttack(bool state)
+    private void ToggleAttack(bool state)
     {
         anim.SetBool("attacking", state);
         // attack with a projectile up to once every 1.5 seconds
-        if (lastAttackTime > 1.5)
+        if (state && lastAttackTime > 1.5)
         {
             attack();
             lastAttackTime = 0;

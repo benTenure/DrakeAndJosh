@@ -11,7 +11,7 @@ public class BallProjectile : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("time: " + existenceTime);
+        //Debug.Log("time: " + existenceTime);
         existenceTime += Time.deltaTime;
         // after 0.7 seconds, have this object dissapear
         if (existenceTime > 0.7)
