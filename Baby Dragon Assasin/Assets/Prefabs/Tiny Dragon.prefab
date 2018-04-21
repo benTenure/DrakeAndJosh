@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 95719953692240368}
   - component: {fileID: 114118370074311002}
   - component: {fileID: 114050420755274984}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tiny Dragon
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1251792589882742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2, y: -0.36, z: 0}
+  m_LocalPosition: {x: -7.207, y: -0.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 1251792589882742}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5ada2d1f3464a4c88bf0283a31ef5c51, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -121,9 +121,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 044cd79348f964c948460f25d9fdfa2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tries: 3
+  lives: 1
   startingHealth: 2
   currentHealth: 0
   playerLives: 1
+  thrust: 10
 --- !u!114 &114169543223500608
 MonoBehaviour:
   m_ObjectHideFlags: 1
