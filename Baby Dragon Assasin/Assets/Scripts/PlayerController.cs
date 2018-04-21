@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -18,8 +19,8 @@ public class PlayerController : MonoBehaviour {
     private Animator playerAnim;
 
 	//Start the player with full lives and tries
-	private int lives = 3;
-	private int tries = 1;
+	//private int lives = 3;
+	//private int tries = 1;
 
     //Used to check how many jumps have been done before resetting
     private int jumps;
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviour {
     public bool isDashing = false;
     public bool isHiding = false;
 
+    private bool movingUp;
+
 	private void Start()
 	{
         playerRB = GetComponent<Rigidbody2D>();
@@ -38,31 +41,33 @@ public class PlayerController : MonoBehaviour {
 
 	private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Floor")
+        if((col.gameObject.tag == "Floor" || col.gameObject.tag == "Platform"))
         {
-            //playerAnim.SetBool("isGrounded", true);
             jumps = 0;
             dashes = 0;
             Debug.Log("Touching Floor");
         }
-        else if (col.gameObject.tag == "Platform")
-        {
-            //playerAnim.SetBool("isGrounded", true);
-            jumps = 0;
-            dashes = 0;
-            Debug.Log("Touching Platform");
-        }
         else if (col.gameObject.tag == "Lava") 
         {
+            SceneManager.LoadScene("YouWin");
             Debug.Log("Touching Lava!");
-        }
-        else {
-            //playerAnim.SetBool("isGrounded", false);
         }
     }
 
-    // Update is called once per frame
-    private void Update () {
+	private void OnTriggerEnter2D(Collider2D col)
+	{
+        if (col.gameObject.name == "Dash") {
+            SpriteRenderer quickRB = col.gameObject.GetComponent<SpriteRenderer>();
+            quickRB.enabled = true;
+        }
+        else if (col.gameObject.name == "Stealth") {
+            SpriteRenderer quickRB = col.gameObject.GetComponent<SpriteRenderer>();
+            quickRB.enabled = true;
+        }
+	}
+
+	// Update is called once per frame
+	private void Update () {
         PlayerMove();
 	}
 
@@ -156,25 +161,6 @@ public class PlayerController : MonoBehaviour {
 		Vector2 localScale = gameObject.transform.localScale;
 		localScale.x *= -1;
 		transform.localScale = localScale;
-	}
-
-	private void HurtPlayer() {
-		if (tries > 0 && lives > 0)
-		{
-			//Hurt the player.
-			tries--;
-			//Code that will bounce the player in the opposite direction of what hurt him.
-		}
-		else if (tries == 0 && lives > 0)
-		{
-			//Take away a life and reset the player's tries
-			lives--;
-			tries = 1;
-			//Code that will reset player to most recent checkpoint
-		}
-		else {
-			//Code that will trigger a game over screen
-		}
 	}
 
     private Vector3 GetDashPosition() 
