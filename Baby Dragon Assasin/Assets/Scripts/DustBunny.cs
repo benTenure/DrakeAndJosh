@@ -59,7 +59,6 @@ public class DustBunny : MonoBehaviour {
         Vector2 src = new Vector2(this.transform.position.x, this.transform.position.y);
         RaycastHit2D hit = Physics2D.Raycast(src, dest-src, 200, whatToHit);
         Debug.DrawLine(src, dest);
-        Debug.Log("\nattacking from " + src + " to " + dest);
 
         // (right now it's just set to player, (I put the player on the player layer in its settings))
         
@@ -69,11 +68,11 @@ public class DustBunny : MonoBehaviour {
             Debug.DrawLine(src, hit.point, Color.red);
             // https://gamedev.stackexchange.com/questions/98328/instantiate-a-prefab-and-call-a-method-from-its-script
             // https://www.youtube.com/watch?v=Q9xKjShQwsI
-            // create a ball object
-            ballPrefab = Instantiate(ballPrefab) as GameObject;
-            BallProjectile projectile = ballPrefab.GetComponent<BallProjectile>();
-            projectile.transform.position = transform.position; // spawn at location of dust bunny
-            projectile.velocity = speed * (dest - src)/(dest-src).magnitude;         // set the velocity variable of the ball (this is called before start() in ball)
+            // create a ball projectile
+            GameObject ball = Instantiate(ballPrefab) as GameObject;
+            BallProjectile projectile = ball.GetComponent<BallProjectile>();
+            projectile.transform.position = transform.position;                      // spawn at location of dust bunny
+            projectile.velocity = speed * (dest - src)/(dest-src).magnitude;         // set the velocity variable of the ball (this is called before start() in BallProjectile)
         }
     }
 
