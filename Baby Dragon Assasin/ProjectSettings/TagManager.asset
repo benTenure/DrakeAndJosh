@@ -9,6 +9,8 @@ TagManager:
   - Lava
   - Enemy
   - Cover
+  - Undefined
+  - Projectile
   layers:
   - Default
   - TransparentFX

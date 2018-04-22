@@ -16,18 +16,28 @@ public class BallProjectile : MonoBehaviour {
         transform.position += velocity * Time.deltaTime;
 
         existenceTime += Time.deltaTime;
-        // TODO: after 0.7 seconds, have this object dissapear
-        // TODO: if collision, disappear (if collision is with player then call damage function)
         if (existenceTime > 0.7)
         {
-            // TODO: get this working
+            // TODO: fix problem where we can't instantiate after destroying the first one
             //Object.Destroy(this.gameObject);
         }
     }
 
-    public void setVelocity(Vector3 v)
+    private void OnTriggerEnter2D(Collider2D coll)
     {
-        velocity = v;
-        Debug.Log("velocity set to " + velocity);
+        Debug.Log("ball collision with " + coll);
+        if (coll.tag == "Player")
+        {
+            HelathSystemScript health = FindObjectsOfType(typeof(HelathSystemScript))[0] as HelathSystemScript; //GameObject.Find("_GameManager").GetComponent<HelathSystemScript>();
+            Debug.Log("found " + health);
+            health.TakeDamage();
+            // call TakeDamage() in health system script
+            health.TakeDamage();
+        }
+
+        if (coll.tag != "Enemy")
+        {
+            //Object.Destroy(this.gameObject);
+        }
     }
 }

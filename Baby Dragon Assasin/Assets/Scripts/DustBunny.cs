@@ -14,10 +14,9 @@ public class DustBunny : MonoBehaviour {
     public float yDistTrigger;
 
     // projectile stuff https://www.youtube.com/watch?v=KKgtC_Gy65c
-    public LayerMask whatToHit;
+    public LayerMask whatToHit;    // in the inpspector you can choose which layers it can be hit
 
     void Start() {
-        // TODO: add timeout to the balls so that they disappear eventually if you miss
         playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
     }
@@ -25,9 +24,9 @@ public class DustBunny : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         lastAttackTime += Time.deltaTime;
-        // check distance from player
         if (playerTrans)
         {
+            // check distance from player
             float xDist = this.transform.position.x - playerTrans.position.x;
             float yDist = this.transform.position.y - playerTrans.position.y;
             // face the player
@@ -36,12 +35,9 @@ public class DustBunny : MonoBehaviour {
 
             // attack if the player is too close
             if (Mathf.Abs(xDist) < xDistTrigger && Mathf.Abs(yDist) < yDistTrigger)
-            {
                 ToggleAttack(true);
-            }
             else
                 ToggleAttack(false);
-
         }
     }
 
@@ -64,17 +60,16 @@ public class DustBunny : MonoBehaviour {
         RaycastHit2D hit = Physics2D.Raycast(src, dest-src, 200, whatToHit);
         Debug.DrawLine(src, dest);
         Debug.Log("\nattacking from " + src + " to " + dest);
-        // note for later: under the dust bunny script in the inpspector, you can choose which layers it can be hit
+
         // (right now it's just set to player, (I put the player on the player layer in its settings))
         
         // only shoot a projectile if we can "see" the player
         if (hit.collider != null) // something hit
         {
             Debug.DrawLine(src, hit.point, Color.red);
-            // create a ball object
             // https://gamedev.stackexchange.com/questions/98328/instantiate-a-prefab-and-call-a-method-from-its-script
             // https://www.youtube.com/watch?v=Q9xKjShQwsI
-
+            // create a ball object
             ballPrefab = Instantiate(ballPrefab) as GameObject;
             BallProjectile projectile = ballPrefab.GetComponent<BallProjectile>();
             projectile.transform.position = transform.position; // spawn at location of dust bunny
@@ -83,6 +78,7 @@ public class DustBunny : MonoBehaviour {
     }
 
     // control whether the dust bunny is attacking or not
+    // launch a projetile ever 1.5 seconds if set to attack
     private void ToggleAttack(bool state)
     {
         anim.SetBool("attacking", state);
@@ -100,5 +96,4 @@ public class DustBunny : MonoBehaviour {
         anim.transform.Rotate(0, 180, 0);
         facingRight = !facingRight;
     }
-
 }
