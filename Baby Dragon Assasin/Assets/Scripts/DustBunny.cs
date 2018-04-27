@@ -33,8 +33,8 @@ public class DustBunny : MonoBehaviour {
             if (xDist > 0 && facingRight || xDist < 0 && !facingRight)
                 flipSprite();
 
-            // attack if the player is too close
-            if (Mathf.Abs(xDist) < xDistTrigger && Mathf.Abs(yDist) < yDistTrigger)
+            // attack if the player is too close (and not in stealth mode)
+            if (Mathf.Abs(xDist) < xDistTrigger && Mathf.Abs(yDist) < yDistTrigger && !playerTrans.gameObject.GetComponent<PlayerController>().isHiding)
                 ToggleAttack(true);
             else
                 ToggleAttack(false);
