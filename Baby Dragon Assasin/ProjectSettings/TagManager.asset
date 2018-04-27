@@ -11,6 +11,7 @@ TagManager:
   - Cover
   - Undefined
   - Projectile
+  - Win
   layers:
   - Default
   - TransparentFX

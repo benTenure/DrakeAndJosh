@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HelathSystemScript : MonoBehaviour {
 
@@ -11,6 +12,9 @@ public class HelathSystemScript : MonoBehaviour {
 	public int startingHealth = 1;
 	public int currentHealth;
 	public int playerLives = 1;
+    public Image damageImage;
+    public float flashSpeed = 5f;
+    public Color flashColor = new Color(1f, 0f, 0f, 0.1f);
     public float thrust = 10f;
 
     private bool damaged;
@@ -26,15 +30,17 @@ public class HelathSystemScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (isDead)
+        if (damaged)
 		{
-			//Debug.Log("Oh no, I died");
-			//gameObject.SetActive(false);
-			//Debug.Log("Game Over");
-
-            //
-
+            damageImage.color = flashColor;
 		}
+        else 
+        {
+            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+        }
+
+        //Must stay false by default to ensure screen isnt constantly flashing red, otherwise changed by TakeDamage()
+        damaged = false;
 
         if (Input.GetKeyDown(KeyCode.Q)) {
             TakeDamage();

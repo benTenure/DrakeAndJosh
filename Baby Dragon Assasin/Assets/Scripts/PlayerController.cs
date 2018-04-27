@@ -47,19 +47,20 @@ public class PlayerController : MonoBehaviour {
             dashes = 0;
             Debug.Log("Touching Floor");
         }
-        else if (col.gameObject.tag == "Lava") 
+        else if (col.gameObject.tag == "Win" && playerRB.velocity.y == 0) 
         {
             SceneManager.LoadScene("YouWin");
-            Debug.Log("Touching Lava!");
         }
     }
 
 	private void OnTriggerEnter2D(Collider2D col)
 	{
+        //Show the "Dash" UI
         if (col.gameObject.name == "Dash") {
             SpriteRenderer quickRB = col.gameObject.GetComponent<SpriteRenderer>();
             quickRB.enabled = true;
         }
+        //Show the "Stealth/Hide" UI
         else if (col.gameObject.name == "Stealth") {
             SpriteRenderer quickRB = col.gameObject.GetComponent<SpriteRenderer>();
             quickRB.enabled = true;
@@ -83,7 +84,7 @@ public class PlayerController : MonoBehaviour {
                 moveX = Input.GetAxisRaw("Horizontal");
 
                 //If player is moving at all, animate
-                if (moveX != 0f)
+                if (moveX == 1 || moveX == -1)
                 {
                     StartRunning(true);
                 }
